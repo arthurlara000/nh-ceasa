@@ -217,9 +217,39 @@ textarea{resize:none;height:68px;}
         <div class="card-hd"><h3>Produto</h3><span>Manual</span></div>
         <div class="card-bd">
 
+          <div class="row2">
+            <div class="field" style="margin:0">
+              <label>Quantidade *</label>
+              <input type="number" id="f_qtd" placeholder="10" min="0" step="0.1" inputmode="decimal" oninput="calcTotal()"/>
+            </div>
+            <div class="field" style="margin:0">
+              <label>Unidade</label>
+              <select id="f_unidade">
+                <option>kg</option><option>cx</option><option>sc</option>
+                <option>un</option><option>feixe</option><option>dz</option><option>L</option>
+              </select>
+            </div>
+          </div>
+
           <div class="field">
             <label>Produto / Descrição *</label>
             <input type="text" id="f_produto" placeholder="Ex: Tomate Caqui" autocomplete="off"/>
+          </div>
+
+          <div class="row2">
+            <div class="field" style="margin:0">
+              <label>Preço Unitário (R$) *</label>
+              <input type="number" id="f_preco" placeholder="0,00" min="0" step="0.01" inputmode="decimal" oninput="calcTotal()"/>
+            </div>
+            <div class="field" style="margin:0">
+              <label>Total (R$)</label>
+              <input type="text" id="f_total" placeholder="0,00" readonly style="background:#e8f0eb;color:var(--verde);font-weight:700;"/>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Fornecedor / Box</label>
+            <input type="text" id="f_fornecedor" placeholder="Nome do feirante" autocomplete="off"/>
           </div>
 
           <div class="row2">
@@ -234,30 +264,6 @@ textarea{resize:none;height:68px;}
               <label>Data</label>
               <input type="date" id="f_data"/>
             </div>
-          </div>
-
-          <div class="field">
-            <label>Fornecedor / Box</label>
-            <input type="text" id="f_fornecedor" placeholder="Nome do feirante" autocomplete="off"/>
-          </div>
-
-          <div class="row2">
-            <div class="field" style="margin:0">
-              <label>Quantidade *</label>
-              <input type="number" id="f_qtd" placeholder="10" min="0" step="0.1" inputmode="decimal"/>
-            </div>
-            <div class="field" style="margin:0">
-              <label>Unidade</label>
-              <select id="f_unidade">
-                <option>kg</option><option>cx</option><option>sc</option>
-                <option>un</option><option>feixe</option><option>dz</option><option>L</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field">
-            <label>Preço Unitário (R$) *</label>
-            <input type="number" id="f_preco" placeholder="0,00" min="0" step="0.01" inputmode="decimal"/>
           </div>
 
           <div class="field">
@@ -355,6 +361,12 @@ textarea{resize:none;height:68px;}
 
 <script>
 let itens=[], cupons=[], selectedFile=null;
+  function calcTotal(){
+    const qtd=parseFloat(document.getElementById('f_qtd').value)||0;
+    const preco=parseFloat(document.getElementById('f_preco').value)||0;
+    const total=qtd*preco;
+    document.getElementById('f_total').value=total>0?total.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'';
+  }
 const now=new Date();
 document.getElementById('homeDate').textContent=now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
 document.getElementById('f_data').valueAsDate=now;
@@ -463,7 +475,7 @@ function _fin(produto,qtd,preco,cupomRef){
 }
 
 function limparForm(){
-  ['f_produto','f_qtd','f_preco','f_fornecedor','f_obs'].forEach(id=>document.getElementById(id).value='');
+  ['f_produto','f_qtd','f_preco','f_fornecedor','f_obs','f_total'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f_categoria').value='Hortifruti';
   document.getElementById('f_data').valueAsDate=new Date();
   clearItem();
