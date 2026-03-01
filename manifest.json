@@ -1,0 +1,25 @@
+{
+  "name": "NH Licitações - Compras CEASA",
+  "short_name": "NH CEASA",
+  "description": "Aplicativo de compras CEASA para NH Licitações",
+  "start_url": "/nh-ceasa/",
+  "scope": "/nh-ceasa/",
+  "display": "standalone",
+  "background_color": "#1a3d2b",
+  "theme_color": "#1a3d2b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
